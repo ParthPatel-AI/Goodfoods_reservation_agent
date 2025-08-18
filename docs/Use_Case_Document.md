@@ -1,65 +1,82 @@
-# GoodFoods Conversational Reservation System — Use Case & Business Strategy
+# Use case Template for Assignment
 
-## 1) Executive Summary
-GoodFoods operates a fast-growing multi-location restaurant brand. The current reservation workflow (calls, manual logs, fragmented web forms) limits table utilization and guest experience. We propose a conversational AI Reservation Agent that handles discovery, recommendations, bookings, changes, and cancellations across 80+ outlets. The agent integrates with a catalog (locations, capacity, attributes), supports intent-driven tool-calling, and plugs into CRM for marketing.
+# Goal
 
-**Business Outcomes**
-- Increase table utilization and reduce no-shows
-- Boost average order value via contextual upsell (e.g., chef’s menus, special events)
-- Reduce call center costs and response times
-- Improve NPS through fast, natural interactions
+## Long Term Goal
+To build an intelligent reservation assistant bot that helps customers book tables, manage reservations, and get real-time updates seamlessly.
 
-## 2) Key Problems & Non-Obvious Opportunities
-- **Fragmented booking channels** → Consolidate across WhatsApp, web, IVR, and kiosks via the same agent core.
-- **Static search** → Dynamic, preference-aware recommendations (dietary, ambiance, live music, special dates).
-- **No-show and late cancellations** → Proactive reminders, easy rescheduling, credit-card holds during peak slots.
-- **Underutilized shoulder hours** → Targeted incentives to shift demand (smart time suggestions with offers).
-- **Events & private dining** → Flow for large parties and PDRs with deposits and menu pre-orders.
-- **Operational insights** → Demand heatmaps, peak-time staffing guidance, forecasted covers by daypart.
-- **Loyalty uplift** → Recognize VIPs, retain preferences (seating, spice tolerance), personalized follow-ups.
+## Success Criteria
+- Smooth and error-free booking experience
+- Handles multiple customer queries simultaneously
+- Provides instant confirmation and updates
+- Easy integration with restaurant reservation systems
+- Positive customer feedback on usability
 
-## 3) Success Metrics (North Star & Guardrails)
-- **Conversion**: Search→Reservation conversion ≥ 28% within 90 days.
-- **Utilization**: Peak-hour seat utilization +8–12%; shoulder-hour utilization +15%.
-- **No-show rate**: -20% via reminders, CC holds, and easy rescheduling.
-- **Response time**: P95 under 3s for tool calls, under 6s overall.
-- **CSAT/NPS**: +10 NPS improvement for reservation touchpoints.
-- **Operational**: ≥ 95% booking accuracy (time/date/party/venue).
+# Use case
 
-## 4) ROI Model (Illustrative)
-Assume 80 locations, avg 110 seats, 2 seatings per evening, 60% baseline utilization. Adding **+10% utilization** across 300 days/year yields ~1.76M additional covers. At ₹600 net contribution per cover → **₹105 Cr incremental** annual contribution. Subtract agent + infra + integration (~₹2 Cr/yr) → **~₹103 Cr net**. Even with conservative assumptions (+4% utilization) ROI remains >20x.
+The Reservation Assistant Bot will act as a digital concierge for customers looking to book tables at a restaurant. Customers can interact with the bot using natural language, specify preferences such as date, time, and number of guests, and receive instant confirmations. The bot can also handle modifications or cancellations, provide menu recommendations, and share restaurant details. This enhances customer convenience while reducing the workload on staff. The bot ensures consistent, 24/7 availability, leading to higher customer satisfaction and increased reservations.
 
-## 5) Stakeholders & RASCI
-- **R**: Product Manager (Reservations), AI Engineer, Backend Engineer, Data Analyst.
-- **A**: Director of Growth / COO.
-- **S**: City GMs, Restaurant Managers, CRM Lead, Customer Support.
-- **C**: Legal (data/privacy), Finance (payments/holds), Brand/Marketing.
-- **I**: Guests, Waitstaff, Kitchen, Facilities.
+## Key Steps (Bot flow)
 
-## 6) Implementation Plan & Timeline (8 weeks)
-- **Week 1–2**: Discovery, catalog cleanup, policies (holds, cancels), SLA design. POC agent with WhatsApp + web.
-- **Week 3–4**: Live pilot in 5 outlets; integrate reminders; add large-party/PDR flow; dashboard MVP.
-- **Week 5–6**: CRM + loyalty integration; offer engine; A/B tests for time-shift incentives.
-- **Week 7–8**: Hardening, observability, RBAC, playbooks; rollout by city; training & SOPs.
+1. Customer initiates chat (e.g., “I want to book a table”).
+2. Bot asks for booking details (date, time, number of guests).
+3. Customer provides input.
+4. Bot checks availability in the reservation system.
+5. Bot confirms booking or offers alternatives.
+6. Customer receives confirmation message.
+7. Optionally, bot provides menu links or special offers.
 
-## 7) Competitive Advantages (2–3 Differentiators)
-1. **Intent-first tool-calling** (no brittle regex). Adaptable to new flows (PDR, events, pre-orders) without rewrite.
-2. **Yield-aware booking**: Utilization guardrails + incentive suggestions to shift demand while protecting guest experience.
-3. **Omnichannel with one core**: Same agent brain powers WhatsApp, web, IVR, kiosks; consistent data + analytics.
+## State Transition Diagram
 
-## 8) Vertical Expansion
-- **Other chains**: Quick-service (slot pickup), cafés (table/meeting spaces), cloud kitchens (time windows).
-- **Adjacent industries**: Salons/spas, coworking space bookings, sports courts, clinic appointments—same primitives (slots, capacity, holds, reminders).
-- **B2B SaaS**: Offer the reservation core as an API-first platform with white-label widgets and analytics.
 
-## 9) Risks & Mitigations
-- **Hallucinations** → Strict tool responses + confirmations before booking; traceable audit logs.
-- **Policy complexity** → Policy engine with templates (per-location variations).
-- **Data quality** → Catalog governance: owner, SLOs, anomaly alerts.
-- **Peak traffic** → Rate limits, backpressure, circuit breakers; async queues for notifications.
+stateDiagram-v2
+    [*] --> Start
+    Start --> BookingRequest: Customer asks for reservation
+    BookingRequest --> CollectDetails: Bot asks date/time/guests
+    CollectDetails --> CheckAvailability: Bot verifies slots
+    CheckAvailability --> ConfirmBooking: Slot available
+    CheckAvailability --> OfferAlternatives: Slot unavailable
+    OfferAlternatives --> ConfirmBooking
+    ConfirmBooking --> End: Confirmation sent
+    End --> [*]
+<img width="603" height="662" alt="Screenshot 2025-08-18 155048" src="https://github.com/user-attachments/assets/0ec6120f-45cf-4caf-a1e6-ef9254ef26f1" />
 
-## 10) Future Enhancements
-- Real-time seat maps; table graph allocation; waitlist + overbooking controls.
-- Payments: deposits/holds, advance orders for events.
-- Personalization: embeddings for preferences; re-rankers for recommendations.
-- Manager console with SLA alerts; workforce suggestions by forecast.
+## 🚀 Bot Features
+- Conversational booking experience  
+- Knowledge Base: Menu, restaurant timings, FAQs  
+- Tools: Calendar & reservation API integration  
+- Languages: **English** (expandable to others)  
+- New Features: Modify/cancel bookings, menu suggestions  
+
+---
+
+## 🎯 Difficulty Levels
+- 🟢 **Green**: Basic booking flow  
+- 🟡 **Yellow**: Modifications & cancellations  
+- 🔴 **Red**: Multi-language + personalized offers  
+
+---
+
+## 🔗 Integrations
+- Reservation management system  
+- Payment gateway (optional)  
+- Menu database  
+
+---
+
+## 📈 Scale Up / Rollout Strategy
+1. Start with a **pilot** for one restaurant branch.  
+2. Collect **user feedback** and improve conversation flow.  
+3. Gradually scale to **all branches with multilingual support**.  
+4. Expand features to include **loyalty rewards and payment integration**.  
+
+---
+
+## ⚡ Key Challenges
+- Ensuring **real-time synchronization** with restaurant systems  
+- Handling **ambiguous user inputs** naturally  
+- Managing **peak traffic** without delays  
+- Supporting **multiple languages** with accuracy  
+- Maintaining **data security and privacy**  
+
+---
