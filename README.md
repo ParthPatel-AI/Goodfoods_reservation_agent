@@ -9,16 +9,6 @@ An end-to-end, from-scratch conversational reservation system for a multi-locati
 - httpx + Pydantic
 - Pandas catalog (80 demo locations)
 
-## 🚀 Quickstart
-```bash
-git clone <your-private-repo-url>
-cd goodfoods_reservation_agent
-python -m venv .venv && source .venv/bin/activate  # or .venv\Scripts\activate on Windows
-pip install -r requirements.txt
-export LLM_API_KEY=...  # or paste in the sidebar
-streamlit run app.py
-```
-
 ## 🔧 Configuration
 Use the left sidebar to select provider (`openrouter|groq|openai`), model, and API key. Default model: `meta-llama/llama-3.1-8b-instruct`.
 
@@ -50,20 +40,3 @@ Synthetic dataset in `data/restaurants.csv` (80 outlets across 8 Indian cities).
 - Working hours parsing is simplified but robust to overnight close times.
 - Payment/holds not implemented (mockable via a payment tool).
 
-## 🗺️ Roadmap
-- Waitlist & overbooking rules
-- Table graph allocation
-- Loyalty profile & personalization
-- Manager dashboards & alerts
-- Email/SMS/WhatsApp notifications
-
-## 🤝 Submission
-Create a **private GitHub repository**, push this folder, and share with **atishay@sarvam.ai**. Add a README section with your environment notes, improvements, and any deviations.
-
-```
-git init
-git remote add origin <private-repo>
-git add .
-git commit -m "GoodFoods Reservation Agent - initial submission"
-git push -u origin main
-```
